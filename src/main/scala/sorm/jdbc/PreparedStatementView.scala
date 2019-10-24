@@ -30,6 +30,7 @@ class PreparedStatementView
           case v: LocalDate            => s.setDate(i, v.toJava)
           case v: LocalTime            => s.setTime(i, v.toJava)
           case v: DateTime             => s.setTimestamp(i, v.toJava)
+          case v: Array[Byte]          => s.setBytes(i, v)
           case null                    => s.setNull(i, java.sql.Types.NULL)
           case _                       => ???
         }

@@ -34,6 +34,7 @@ object `package` {
           case _ : LocalDate  => DATE
           case _ : LocalTime  => TIME
           case _ : DateTime   => TIMESTAMP
+          case _ : Array[Byte]=> BINARY
           case null           => NULL
           case _              => throw new SormException("Value of unsupported type `" + v.getClass + "`: " + v)
         }

@@ -50,6 +50,7 @@ object `package` {
     case object Decimal extends ColumnType
     case object SmallInt extends ColumnType
     case object TinyInt extends ColumnType
+    case object Binary extends ColumnType
 
   }
 
@@ -72,6 +73,7 @@ object `package` {
         case Decimal   => DECIMAL
         case SmallInt  => SMALLINT
         case TinyInt   => TINYINT
+        case Binary    => BINARY
       }
     }
 }

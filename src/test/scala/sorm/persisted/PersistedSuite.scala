@@ -66,10 +66,16 @@ class PersistedSuite extends FunSuite with ShouldMatchers {
       .should( produce[Exception])
       .getMessage should be ("Persisted on persisted called")
   }
+
+  test("persisted binary") {
+    Persisted(GenreBinary("name", "text".getBytes()), 1L)
+  }
 }
 object PersistedSuite {
 
   case class Artist(name: String, genres: Set[Genre])
 
   case class Genre(name: String)
+
+  case class GenreBinary(name: String, text: Array[Byte])
 }

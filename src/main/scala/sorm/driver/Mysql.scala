@@ -27,6 +27,7 @@ class Mysql (protected val connection : JdbcConnection)
       import ColumnType._
       t match {
         case Text => "LONGTEXT"
+        case Binary => "LONGBLOB"
         case _ => super.columnTypeDdl(t)
       }
     }

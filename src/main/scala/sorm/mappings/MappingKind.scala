@@ -45,6 +45,7 @@ object MappingKind {
             OptionToNullable
         case _
           if (reflection <:< Reflection[AnyVal])
+          || (reflection <:< Reflection[Array[Byte]])
           || (reflection <:< Reflection[String])
           || (reflection <:< Reflection[BigDecimal])
           || (reflection <:< Reflection[org.joda.time.DateTime])

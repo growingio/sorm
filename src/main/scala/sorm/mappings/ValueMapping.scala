@@ -1,5 +1,7 @@
 package sorm.mappings
 
+import java.sql.Blob
+
 import sorm._
 import driver.DriverConnection
 import core._
@@ -36,6 +38,8 @@ class ValueMapping
             ⇒ ColumnType.Float
           case _ if reflection <:< Reflection[Double]
             ⇒ ColumnType.Double
+          case _ if reflection <:< Reflection[Array[Byte]]
+            => ColumnType.Binary
           case _ if reflection <:< Reflection[DateTime]
             ⇒ ColumnType.TimeStamp
           case _ if reflection <:< Reflection[LocalTime]
@@ -72,7 +76,19 @@ class ValueMapping
       }
 
 
-    def valueFromContainerRow ( data: String => Any, c : DriverConnection ) = data(memberName)
+    def valueFromContainerRow ( data: String => Any, c : DriverConnection ) = data(memberName) match {
+      // handle blob to binary
+      case x if x.isInstanceOf[Blob] && columnType == ColumnType.Binary =>
+        val b = x.asInstanceOf[Blob]
+        try {
+          b.getBytes(1, b.length().toInt)
+        } finally {
+          try b.free() catch {
+            case _: Throwable => // ignore
+          }
+        }
+      case x => x
+    }
 
     def valuesForContainerTableRow( value : Any ) = (memberName -> value) +: Stream()
   }

@@ -75,6 +75,7 @@ trait StdCreateTable { self: StdConnection with StdQuote =>
         case Decimal => "DECIMAL(65,30)"
         case SmallInt => "SMALLINT"
         case TinyInt => "TINYINT"
+        case Binary => "BLOB"
       }
     }
 }

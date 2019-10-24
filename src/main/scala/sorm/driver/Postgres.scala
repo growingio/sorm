@@ -42,6 +42,7 @@ class Postgres (protected val connection : JdbcConnection)
         case Text => "TEXT"
         case TinyInt => "SMALLINT"
         case Double => "DOUBLE PRECISION"
+        case Binary => "BYTEA"
         case _ => super.columnTypeDdl(t)
       }
     }

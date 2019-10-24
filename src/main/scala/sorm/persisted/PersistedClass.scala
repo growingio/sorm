@@ -28,19 +28,19 @@ object PersistedClass extends Logging {
 
       val sourceArgSignatures
         = sourceArgs.view
-            .map{ case (n, r) => n + " : " + r.signature }
+            .map{ case (n, r) => quoteArg(n) + " : " + r.signature }
             .toList
 
       val newArgSignatures : Seq[String]
         = "val id : Long" +: sourceArgSignatures
 
       val copyMethodArgSignatures
-        = sourceArgs.map{ case (n, r) => 
-            n + " : " + r.signature + " = " + n
+        = sourceArgs.map{ case (n, r) =>
+            quoteArg(n) + " : " + r.signature + " = " + quoteArg(n)
           }
 
       val oldArgNames
-        = sourceArgs.map{ _._1 }
+        = sourceArgs.map{ c => quoteArg(c._1) }
 
       val newArgNames
         = "id" +: oldArgNames
@@ -49,7 +49,7 @@ object PersistedClass extends Logging {
       "class " + name + "\n" +
       ( "( " + newArgSignatures.mkString(",\n").indent(2).trim + " )\n" +
         "extends " + r.signature + "( " + 
-        sourceArgs.map{_._1}.mkString(", ") + 
+        sourceArgs.map{c => quoteArg(c._1)}.mkString(", ") +
         " )\n" +
         "with " + Reflection[Persisted].signature + "\n" + 
         "{\n" +
@@ -69,7 +69,7 @@ object PersistedClass extends Logging {
           ( "= " + 
             ( "n match {\n" +
               ( ( for { (n, i) <- newArgNames.view.zipWithIndex }
-                  yield "case " + i + " => " + n
+                  yield "case " + i + " => " + quoteArg(n)
                 ) :+ 
                 "case _ => throw new IndexOutOfBoundsException(n.toString)"
               ).mkString("\n").indent(2) + "\n" +
@@ -94,6 +94,11 @@ object PersistedClass extends Logging {
         .indent(2) + "\n" +
         "classOf[" + name + "]"
     }
+
+  private def quoteArg(arg: String) = arg match {
+    case "type" => s"`$arg`"
+    case _ => arg
+  }
 
   private[persisted] def createClass
     [ T ]

@@ -108,6 +108,9 @@ class ReflectionSuite extends FunSuite with ShouldMatchers {
     Reflection[Int].signature should
     equal("Int")
   }
+  test("Array[Byte] signature"){
+    Reflection[Array[Byte]].signature should be === "Array[Byte]"
+  }
 //  test("inner class fullName") {
 //    Reflection[Wrapper#InnerClass].fullName should
 //    equal("sorm.reflection.ReflectionSuite.Wrapper#InnerClass")

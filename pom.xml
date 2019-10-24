@@ -6,7 +6,7 @@
 
   <groupId>org.sorm-framework</groupId>
   <artifactId>sorm</artifactId>
-  <version>0.3.22-SNAPSHOT</version>
+  <version>0.3.22-GIO-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>SORM</name>
@@ -34,15 +34,25 @@
     <developerConnection>scm:git:git@github.com:sorm/sorm.git</developerConnection>
   </scm>
 
+<!--  <distributionManagement>-->
+<!--    <snapshotRepository>-->
+<!--      <id>ossrh</id>-->
+<!--      <url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
+<!--    </snapshotRepository>-->
+<!--    <repository>-->
+<!--      <id>ossrh</id>-->
+<!--      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+<!--    </repository>-->
+<!--  </distributionManagement>-->
   <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
     <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <id>gio</id>
+      <url>http://10.0.1.190:8081/nexus/content/repositories/releases</url>
     </repository>
+    <snapshotRepository>
+      <id>gio</id>
+      <url>http://10.0.1.190:8081/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <dependencies>
