@@ -80,6 +80,7 @@ class ResultSetView
               case BLOB               => rs.getBlob(i)
               case CLOB               => rs.getString(i)
               case BOOLEAN            => rs.getBoolean(i)
+              case OTHER              => rs.getObject(i)
               case _                  => ???
             }
         if( rs.wasNull() ) null
@@ -87,6 +88,8 @@ class ResultSetView
           case r : java.sql.Date => r.toJoda
           case r : java.sql.Time => r.toJoda
           case r : java.sql.Timestamp => r.toJoda
+          // support pg object
+          case x if x.getClass.getName.contains("PGobject") => r.toString
           case _ => r
         }
       }
