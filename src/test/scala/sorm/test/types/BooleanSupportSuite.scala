@@ -1,16 +1,15 @@
 package sorm.test.types
 
-import org.scalatest.FunSuite
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSuite, Matchers}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-
-import sext._, embrace._
+import sext._
+import embrace._
 import sorm._
 import sorm.test.MultiInstanceSuite
 
 @RunWith(classOf[JUnitRunner])
-class BooleanSupportSuite extends FunSuite with ShouldMatchers with MultiInstanceSuite {
+class BooleanSupportSuite extends FunSuite with Matchers with MultiInstanceSuite {
   import BooleanSupportSuite._
 
   def entities = Set(Entity[A]())

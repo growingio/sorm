@@ -1,62 +1,63 @@
 package sorm.test.features
 
-import org.scalatest.FunSuite
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSuite, Matchers}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-
 import sorm._
 import samples._
 import sorm.{Entity, Instance}
 
 @RunWith(classOf[JUnitRunner])
-class SormValidationSuite extends FunSuite with ShouldMatchers {
+class SormValidationSuite extends FunSuite with Matchers {
   import SormValidationSuite._
 
   test("Mutually recursive types are not supported"){
-    evaluating {
+    an [Instance.ValidationException] should be thrownBy {
       new Instance(
         Entity[F]() :: Entity[G]() :: Nil,
         "jdbc:h2:mem:test",
         initMode = InitMode.DropAllCreate
       ).close()
-    } should produce [Instance.ValidationException]
+    }
   }
   test("Mutually recursive types are not supported - deep"){
-    evaluating {
+    an [Instance.ValidationException] should be thrownBy {
       new Instance(
         Entity[F]() :: Entity[H]() :: Nil,
         "jdbc:h2:mem:test",
         initMode = InitMode.DropAllCreate
       ).close()
-    } should produce [Instance.ValidationException]
+    }
   }
   test("Recursive types are not supported"){
-    evaluating {
+    an [Instance.ValidationException] should be thrownBy {
       new Instance(
         Entity[E]() :: Nil,
         "jdbc:h2:mem:test",
         initMode = InitMode.DropAllCreate
       ).close()
-    } should produce [Instance.ValidationException]
+
+    }
   }
   test("`Any` type is not supported"){
-    evaluating {
+    an [Instance.ValidationException] should be thrownBy {
       new Instance(
         Entity[D]() :: Nil,
         "jdbc:h2:mem:test",
         initMode = InitMode.DropAllCreate
       ).close()
-    } should produce [Instance.ValidationException]
+
+    }
   }
   test("referred entities validation"){
-    evaluating {
+    an [Instance.ValidationException] should be thrownBy {
       new Instance(
         Entity[A]() :: Nil,
         "jdbc:h2:mem:test",
-      initMode = InitMode.DropAllCreate
+        initMode = InitMode.DropAllCreate
       ).close()
-    } should produce [Instance.ValidationException]
+
+    }
   }
   test("Correct instantiation doesn't throw exceptions"){
     new Instance(

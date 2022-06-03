@@ -1,12 +1,11 @@
 package sorm.reflection
 
-import org.scalatest.FunSuite
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSuite, Matchers}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class ReflectionSuite extends FunSuite with ShouldMatchers {
+class ReflectionSuite extends FunSuite with Matchers {
   import ReflectionSuite._
 
 //  from mirrorquirks

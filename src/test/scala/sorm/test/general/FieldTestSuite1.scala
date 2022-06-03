@@ -1,18 +1,17 @@
 package sorm.test.general
 
-import org.scalatest.{SequentialNestedSuiteExecution, FunSuite}
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSuite, Matchers, SequentialNestedSuiteExecution}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-
 import sorm._
 import core.DbType
-import sext._, embrace._
+import sext._
+import embrace._
 import org.joda.time._
 import sorm.test.TestingInstances
 
 @RunWith(classOf[JUnitRunner])
-class FieldTestSuite1 extends FunSuite with ShouldMatchers with SequentialNestedSuiteExecution {
+class FieldTestSuite1 extends FunSuite with Matchers with SequentialNestedSuiteExecution {
   import FieldTestSuite1._
   def entities
     = Set() +
